@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native';
+import { Text, View, FlatList, TouchableOpacity } from 'react-native';
 
-import api from '../services/api';
+import api from '../../services/api';
+
+import styles from './styles';
 
 export default class Main extends Component {
     state = {
@@ -21,11 +23,11 @@ export default class Main extends Component {
     };
 
     renderItem = ({ item }) => (
-        <View>
-            <Text>{item.title}</Text>
-            <Text>{item.description}</Text>
-            <TouchableOpacity onPress={() => { }}>
-                <Text>
+        <View style={styles.productContainer}>
+            <Text style={styles.productTitle}>{item.title}</Text>
+            <Text style={styles.productDescription}>{item.description}</Text>
+            <TouchableOpacity style={styles.productButton} onPress={() => { }}>
+                <Text style={styles.productButtonText}>
                     Acessar
                 </Text>
             </TouchableOpacity>
@@ -36,8 +38,9 @@ export default class Main extends Component {
         const { docs } = this.state;
 
         return (
-            <View>
+            <View style={styles.container}>
                 <FlatList
+                    contentContainerStyle={styles.list}
                     data={docs}
                     keyExtractor={item => item._id}
                     renderItem={this.renderItem}
