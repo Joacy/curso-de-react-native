@@ -1,33 +1,47 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native';
 
 import api from '../services/api';
 
 export default class Main extends Component {
     state = {
-        products: [],
-        productInfo: {},
-        page: 1,
+        docs: []
     }
 
     componentDidMount () {
         this.loadProducts();
     }
 
-    loadProducts = async (page = 1) => {
-        const response = await api.get(`/products?page=${page}`);
+    loadProducts = async () => {
+        const response = await api.get('/products');
 
-        const { docs, ...productInfo } = response.data;
+        const { docs } = response.data;
 
-        this.setState({ products: docs, productInfo, page });
+        this.setState({ docs });
     };
 
+    renderItem = ({ item }) => (
+        <View>
+            <Text>{item.title}</Text>
+            <Text>{item.description}</Text>
+            <TouchableOpacity onPress={() => { }}>
+                <Text>
+                    Acessar
+                </Text>
+            </TouchableOpacity>
+        </View>
+    );
+
     render () {
+        const { docs } = this.state;
+
         return (
             <View>
-                <Text>
-                    Página Main
-                </Text>
+                <FlatList
+                    data={docs}
+                    keyExtractor={item => item._id}
+                    renderItem={this.renderItem}
+                />
             </View>
         );
     };
