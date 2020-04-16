@@ -5,13 +5,14 @@ import { createStackNavigator } from '@react-navigation/stack';
 const AppStack = createStackNavigator();
 
 import Main from './pages/main';
+import Product from './pages/product';
 
 export default function Routes () {
     return (
         <NavigationContainer>
 
-            <AppStack.Navigator
-                screenOptions={{
+            <AppStack.Navigator screenOptions={
+                {
                     headerStyle: {
                         backgroundColor: '#da552f',
                     },
@@ -19,11 +20,12 @@ export default function Routes () {
                     headerShown: true,
                     title: 'JSHunt',
                     headerTitleAlign: 'center',
-                }}
-            >
-                <AppStack.Screen name="Main" component={Main} />
+                }
+            }>
+                <AppStack.Screen name="JSHunt" component={Main} />
+                <AppStack.Screen name="Product" component={Product} />
             </AppStack.Navigator>
 
-        </NavigationContainer>
+        </NavigationContainer >
     );
 }
